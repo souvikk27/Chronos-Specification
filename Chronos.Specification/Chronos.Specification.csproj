@@ -1,0 +1,25 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>net8.0</TargetFramework>
+    <ImplicitUsings>enable</ImplicitUsings>
+    <Nullable>enable</Nullable>
+	  <PackageIcon>icon.png</PackageIcon>
+	  <PackageId>Chronos.Specification</PackageId>
+	  <Authors>Souvik Kundu</Authors>
+	  <Product>Chronos.Specification</Product>
+	  <Description>Implementation of generic repository pattern with specification pattern </Description>
+	  <Copyright>MIT </Copyright>
+	  <GeneratePackageOnBuild>True</GeneratePackageOnBuild>
+	  <Title>Chronos.Specification</Title>
+	  <PackageTags>Repository; Specification;</PackageTags>
+	  <PackageLicenseExpression>MIT</PackageLicenseExpression>
+	  <PackageRequireLicenseAcceptance>True</PackageRequireLicenseAcceptance>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Microsoft.EntityFrameworkCore" Version="8.0.6" />
+    <None Include="images\icon.png" Pack="true" PackagePath=""/>
+  </ItemGroup>
+
+</Project>
