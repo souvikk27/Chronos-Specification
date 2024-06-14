@@ -1,7 +1,7 @@
 
 # Chronos Specification
 
-Chronos Specification is a Python package designed to simplify the process of creating custom repositories by providing basic implementations. This package helps developers to quickly set up and manage their repositories, reducing the time and effort required for this task
+Chronos Specification is a C# package designed to simplify the process of creating custom repositories by providing basic implementations. This package helps developers to quickly set up and manage their repositories, reducing the time and effort required for this task
 
 
 
