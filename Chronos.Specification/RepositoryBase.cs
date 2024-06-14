@@ -8,9 +8,9 @@ namespace Chronos.Specification
         protected readonly TContext Context;
         protected readonly DbSet<TEntity> _dbSet;
 
-        public RepositoryBase(IRepositoryOptions<TContext> options)
+        public RepositoryBase(TContext context)
         {
-            Context = options.Context;
+            Context = context;
             _dbSet = Context.Set<TEntity>();
         }
 
