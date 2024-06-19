@@ -46,32 +46,12 @@ namespace Chronos.Specification
 
         public TEntity? GetById(object id)
         {
-            var keyExpression = Key() ??
-                                throw new InvalidOperationException(
-                                    "Key expression is not defined for this repository.");
-            var entityParameter = Expression.Parameter(typeof(TEntity), "entity");
-            var keyPropertyType = GetKeyPropertyType(typeof(TEntity));
-            var idConstant = Expression.Constant(Convert.ChangeType(id, keyPropertyType));
-            var lambda = Expression.Lambda<Func<TEntity, bool>>(
-                Expression.Equal(Expression.Invoke(keyExpression, entityParameter), idConstant),
-                entityParameter
-            );
-            return Context.Set<TEntity>().SingleOrDefault(lambda);
+            return Context.Set<TEntity>().Find(id);
         }
 
         public async Task<TEntity?> GetByIdAsync(object id)
         {
-            var keyExpression = Key() ??
-                                throw new InvalidOperationException(
-                                    "Key expression is not defined for this repository.");
-            var entityParameter = Expression.Parameter(typeof(TEntity), "entity");
-            var keyPropertyType = GetKeyPropertyType(typeof(TEntity));
-            var idConstant = Expression.Constant(Convert.ChangeType(id, keyPropertyType));
-            var lambda = Expression.Lambda<Func<TEntity, bool>>(
-                Expression.Equal(Expression.Invoke(keyExpression, entityParameter), idConstant),
-                entityParameter
-            );
-            return await Context.Set<TEntity>().SingleOrDefaultAsync(lambda);
+            return await Context.Set<TEntity>().FindAsync(id);
         }
 
         public IEnumerable<TEntity> Find(Expression<Func<TEntity, bool>> predicate)
@@ -127,16 +107,6 @@ namespace Chronos.Specification
         public async Task SaveChangesAsync()
         {
             await Context.SaveChangesAsync();
-        }
-
-        private Type GetKeyPropertyType(Type entityType)
-        {
-            var keyProperty = Context.Model.FindEntityType(entityType)?.FindPrimaryKey()?.Properties.FirstOrDefault();
-            if (keyProperty != null)
-            {
-                return keyProperty.ClrType;
-            }
-            throw new InvalidOperationException($"Key property not found for type {entityType.Name}");
         }
 
         private IQueryable<TEntity> ApplySpecificationList(IQueryable<TEntity> query, ISpecification<TEntity> specification)
