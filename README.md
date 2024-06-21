@@ -43,6 +43,7 @@ public class ProductRepository : RepositoryBase<Product, ApplicationDbContext>, 
     public override Expression<Func<ApplicationDbContext, DbSet<Model.Product>>> DataSet() => o => o.Products;
 
     public override Expression<Func<Model.Product, object>> Key() => o => o.Id;
+}
 ```
 
 

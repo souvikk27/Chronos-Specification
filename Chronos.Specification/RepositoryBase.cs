@@ -6,12 +6,11 @@ namespace Chronos.Specification
     public class RepositoryBase<TEntity, TContext> : IRepositoryBase<TEntity> where TEntity : class where TContext : DbContext
     {
         protected readonly TContext Context;
-        protected readonly DbSet<TEntity> _dbSet;
 
         public RepositoryBase(TContext context)
         {
             Context = context;
-            _dbSet = Context.Set<TEntity>();
+            Context.Set<TEntity>();
         }
 
         public virtual Expression<Func<TContext, DbSet<TEntity>>> DataSet() => null!;
@@ -87,6 +86,16 @@ namespace Chronos.Specification
             Context.Entry(entity).State = EntityState.Modified;
             await Task.Yield();
             return entity;
+        }
+
+        public bool CheckExists(Expression<Func<TEntity, bool>> predicate)
+        {
+            return Context.Set<TEntity>().AsNoTracking().Any(predicate);
+        }
+
+        public async Task<bool> CheckExistsAsync(Expression<Func<TEntity, bool>> predicate)
+        {
+            return await Context.Set<TEntity>().AsNoTracking().AnyAsync(predicate);
         }
 
         public void Delete(TEntity entity)
